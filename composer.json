@@ -1,8 +1,8 @@
 {
-    "name": "BobHearnIT/stripe-integration",
+    "name": "bobhearnit/stripe-integration",
     "type": "library",
     "description": "Provide a simple Stripe integration",
-    "keywords": ["strip"],
+    "keywords": ["stripe"],
     "license": "MIT",
     "authors": [
         {
