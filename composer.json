@@ -1,0 +1,23 @@
+{
+    "name": "BobHearnIT/stripe-integration",
+    "type": "library",
+    "description": "Provide a simple Stripe integration",
+    "keywords": ["strip"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cédric Audurieau",
+            "email": "caudurieau@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "stripe/stripe-php": "^17.2",
+    },
+    "require-dev": {},
+    "conflict": {},
+    "extra": {
+        "lock": false
+    },
+    "minimum-stability": "dev"
+}
