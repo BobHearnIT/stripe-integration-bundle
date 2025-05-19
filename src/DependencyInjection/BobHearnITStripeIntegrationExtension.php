@@ -4,34 +4,20 @@ namespace BobHearnIT\StripeIntegrationBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-final class BobHearnITStripeIntegrationExtension extends ConfigurableExtension
+final class BobHearnITStripeIntegrationExtension extends Extension
 {
-    protected function loadInternal(array $config, ContainerBuilder $container): void
+    /** {@inheritdoc} */
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $this->loadResources($container);
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('bobhearnit.stripe_integration.key', $config['key']);
-    }
 
-    private function loadResources(ContainerBuilder $container): void
-    {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-
-        $resources = [
-            'builder',
-            'command',
-            'config',
-            'form',
-            'installer',
-            'renderer',
-            'twig',
-        ];
-
-        foreach ($resources as $resource) {
-            $loader->load($resource.'.xml');
-        }
+        $loader->load('services.yaml');
     }
 }
