@@ -1,5 +1,5 @@
 {
-    "name": "bobhearnit/stripe-integration",
+    "name": "bobhearnit/stripe-integration-bundle",
     "type": "library",
     "description": "Provide a simple Stripe integration",
     "keywords": ["stripe"],
