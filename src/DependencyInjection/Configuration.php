@@ -9,12 +9,15 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('bobhearnit_stripe_integration');
+        $treeBuilder = new TreeBuilder('bob_hearn_it_stripe_integration');
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
-                ->booleanNode('key')->isRequired()->end()
+                ->scalarNode('key')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
             ->end();
 
         return $treeBuilder;

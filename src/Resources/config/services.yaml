@@ -10,5 +10,8 @@ services:
     BobHearnIT\StripeIntegrationBundle\Services\StripeService:
         autoconfigure: true
         autowire: false
+        arguments:
+            $client: '@BobHearnIT\StripeIntegrationBundle\Client\StripeClientInterface'
+            $translator: '@translator'
 
     BobHearnIT\StripeIntegrationBundle\Services\StripeServiceInterface: '@BobHearnIT\StripeIntegrationBundle\Services\StripeService'

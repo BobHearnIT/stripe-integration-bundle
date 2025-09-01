@@ -7,19 +7,9 @@ use Symfony\Component\Intl\Currencies;
 
 class SubscriptionPlanModel implements SubscriptionPlanInterface
 {
-    public const array INTERVALS = [
-        'day', 'month', 'week', 'year'
-    ];
-
     public ?string $name = null {
         get {
             return $this->name;
-        }
-    }
-
-    public ?int $amount = null {
-        get {
-            return $this->amount;
         }
     }
 
@@ -35,11 +25,21 @@ class SubscriptionPlanModel implements SubscriptionPlanInterface
         }
     }
 
-    public array $features = [] {
+    /** @var RecurrenceModel[] */
+    public array $recurrences = [] {
         get {
-            return $this->features;
+            return $this->recurrences;
         }
     }
+
+    public ?object $object = null {
+        get {
+            return $this->object;
+        }
+    }
+
+    public ?string $stripeProductId = null;
+    public ?string $stripePriceId = null;
 
     private function __construct()
     {
@@ -48,17 +48,17 @@ class SubscriptionPlanModel implements SubscriptionPlanInterface
 
     /** {@inheritDoc} */
     public static function build(
+        ?string $stripeProductId,
         string $name,
-        int $amount,
         string $currency,
-        string $interval,
-        array $features = [],
+        array $recurrences,
+        $refObject = null,
     ): self
     {
         $model = new self();
 
+        $model->stripeProductId = $stripeProductId;
         $model->name = $name;
-        $model->amount = $amount;
 
         $currency = strtoupper($currency);
 
@@ -68,14 +68,21 @@ class SubscriptionPlanModel implements SubscriptionPlanInterface
         }
 
         $model->currency = $currency;
-
-        if (!in_array($interval, self::INTERVALS)) {
-            throw new \InvalidArgumentException('The interval "' . $interval . '" is not a valid one.');
-        }
-
-        $model->interval = $interval;
-        $model->features = $features;
+        $model->recurrences = $recurrences;
+        $model->object = $refObject;
 
         return $model;
+    }
+
+    public function setStripeProductId(string $stripeProductId): self
+    {
+        $this->stripeProductId = $stripeProductId;
+
+        return $this;
+    }
+
+    public function getStripeProductId(): ?string
+    {
+        return $this->stripeProductId;
     }
 }
